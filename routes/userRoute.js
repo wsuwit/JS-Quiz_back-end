@@ -1,7 +1,7 @@
-const { authenticate } = require("../controller/authController");
+const { authenticate } = require("../controllers/authController");
 const express = require("express");
 const multer = require("multer");
-const userController = require("../controller/userController");
+const userController = require("../controllers/userController");
 
 const router = express.Router();
 
@@ -18,7 +18,7 @@ const upload = multer({
 });
 
 router.get("/", userController.getAllUser);
-router.get("/userId", authenticate, userController.getUserByUserId);
+router.get("/myId", authenticate, userController.getUserByUserId);
 router.put("/updateDetail", authenticate, userController.updateUserDetail);
 router.put(
   "/updateImage",

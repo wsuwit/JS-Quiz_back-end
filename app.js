@@ -1,5 +1,5 @@
 // const { sequelize } = require("./models");
-// sequelize.sync({alter:true});
+// sequelize.sync({ alter: true });
 
 require("dotenv").config();
 const authRoute = require("./routes/authRoute");
@@ -8,6 +8,7 @@ const errorController = require("./controllers/errorController");
 const express = require("express");
 const passport = require("passport");
 const quizRoute = require("./routes/quizRoute");
+const userRoute = require("./routes/userRoute");
 require("./config/passport");
 
 const app = express();
@@ -24,11 +25,14 @@ app.use(express.json());
 // # authenticate route
 app.use("/auth", authRoute);
 
-// # Express looks up the files relative to the static directory, so the name of the static directory is not part of the URL.
-app.use("/public", express.static("public"));
+// # user route
+app.use("/user", userRoute);
 
 // # quiz route
-app.use("/quizzes", quizRoute);
+app.use("/quiz", quizRoute);
+
+// # Express looks up the files relative to the static directory, so the name of the static directory is not part of the URL.
+app.use("/public", express.static("public"));
 
 // # path not found handling middleware
 app.use((req, res) => {

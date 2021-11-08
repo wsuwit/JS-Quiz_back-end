@@ -20,8 +20,8 @@ exports.authenticate = async (req, res, next) => {
     const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
     const user = await User.findOne({ where: { id: decoded.id } });
 
-    console.log("@decoded:", decoded);
-    console.log("@user:", user);
+    console.log("@decodedAuth:", decoded);
+    console.log("@userAuth:", user);
 
     if (!user) {
       return res.status(401).json({ message: "you are unauthorized" });
@@ -38,8 +38,7 @@ exports.authenticate = async (req, res, next) => {
 
 exports.register = async (req, res, next) => {
   try {
-    const { email, password, confirmPassword, nickname, profileImage } =
-      req.body;
+    const { email, password, confirmPassword, nickname } = req.body;
 
     if (password !== confirmPassword) {
       throw new CustomError("password and confirm password did not match", 400);
@@ -50,8 +49,7 @@ exports.register = async (req, res, next) => {
     await User.create({
       email,
       password: hashedPassword,
-      nickname,
-      profileImage
+      nickname
     });
 
     res.status(200).json({ message: "your account has been created" });
