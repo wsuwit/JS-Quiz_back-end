@@ -38,6 +38,7 @@ exports.authenticate = async (req, res, next) => {
 
 exports.register = async (req, res, next) => {
   try {
+    console.log("@reqBody:", req.body);
     const { email, password, confirmPassword, nickname } = req.body;
 
     if (password !== confirmPassword) {

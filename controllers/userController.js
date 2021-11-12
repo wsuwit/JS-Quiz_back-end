@@ -25,10 +25,13 @@ exports.getUserByUserId = async (req, res, next) => {
 
 exports.updateUserDetail = async (req, res, next) => {
   try {
-    const { nickname } = req.body;
+    const { nickname, score, currentIndex } = req.body;
     console.log(`@req.body:`, req.body);
     const user = await User.findOne({ where: { id: req.user.id } });
-    user.nickname = nickname;
+
+    if (nickname) user.nickname = nickname;
+    if (score) user.score += score;
+    if (!isNaN(currentIndex)) user.currentIndex = currentIndex;
 
     const rows = await user.save();
     console.log("@rowsUpdateUser:", rows);

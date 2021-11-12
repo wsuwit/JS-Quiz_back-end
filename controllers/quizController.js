@@ -23,11 +23,11 @@ exports.getQuiz = async (req, res, next) => {
 
 exports.createQuiz = async (req, res, next) => {
   try {
-    const { subject, questions } = req.body;
+    const { subjectName, questions } = req.body;
 
     if (req.user.role === "admin") {
       const result = await quizService.save({
-        subject,
+        subjectName,
         questions
       });
 
@@ -42,11 +42,11 @@ exports.createQuiz = async (req, res, next) => {
 exports.updateQuiz = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const { subject, questions } = req.body;
+    const { subjectName, questions } = req.body;
 
     if (req.user.role === "admin") {
       const result = await quizService.updateById(id, {
-        subject,
+        subjectName,
         questions
       });
 
